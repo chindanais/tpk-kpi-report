@@ -5,8 +5,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TPK KPI Portal</title>
-<!-- TPK KPI Portal Rev.02 — ลำดับแผนก: Blown, Printed, Converting, Engineer, Quality, Planning, Store, Transportation, HR, Purchase, R&D
-     Rev.01 — หน้าเว็บรวมลิงก์ (ฝังใน sites.google.com/view/tpk-kpi-report)
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23252D48'/%3E%3Crect x='7.5' y='16' width='4.2' height='9.5' rx='1.2' fill='%23fff'/%3E%3Crect x='13.9' y='11' width='4.2' height='14.5' rx='1.2' fill='%23fff'/%3E%3Crect x='20.3' y='6.5' width='4.2' height='19' rx='1.2' fill='%23fff'/%3E%3C/svg%3E">
+<!-- TPK KPI Portal GitHub Rev.05 — จอ < 375px: ปุ่มยังอยู่ตรงคอลัมน์ข้อความ แต่หดความกว้างแทนการย้ายไปชิดซ้าย
+     Rev.04 — ปุ่มหลักเล็กลง: ไม่เต็มความกว้างการ์ด จัดตรงคอลัมน์ข้อความ (คอม 48px / มือถือ 42px)
+     Rev.03 — CSS ใกล้ Mockup (คอม/มือถือจอเดียว), README สิทธิ์ใหม่, favicon, ลบอ้างอิง Sites
+     Rev.02 — ลำดับแผนก: Blown, Printed, Converting, Engineer, Quality, Planning, Store, Transportation, HR, Purchase, R&D
      ต้นแบบ: FINAL REFERENCE 02 (Desktop / Mobile) · ชุดสี D — Indigo Precision
      ลิงก์ของแต่ละแผนกอยู่ในตัวแปร DEPTS ด้านล่าง — แผนกที่ยังไม่มีลิงก์ = ปุ่มสีเทา "ยังไม่เปิดใช้งาน" -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,88 +24,143 @@
 
   .shell{ min-height:100vh; display:flex; flex-direction:column; background:var(--card); }
   .top{ height:80px; display:flex; align-items:center; justify-content:space-between; padding:0 26px 0 28px; border-bottom:1px solid var(--border); background:var(--card); }
-  .top .logo{ height:62px; width:auto; display:block; }
-  .top .ws{ display:flex; align-items:center; gap:16px; font-size:15px; font-weight:500; letter-spacing:.22em; color:var(--midnight); }
+  .top .logo{ height:62px; width:auto; display:block; flex:none; }
+  .top .ws{ display:flex; align-items:center; gap:16px; font-size:14px; font-weight:500; letter-spacing:.22em; color:var(--midnight); white-space:nowrap; }
   .top .av{ width:42px; height:42px; border-radius:50%; background:var(--selected); display:flex; align-items:center; justify-content:center; color:var(--midnight); }
   .top .av svg.i{ width:26px; height:26px; stroke-width:1.5; }
   .top .menu{ display:none; border:none; background:none; color:var(--midnight); padding:6px; }
 
   .body{ flex:1; display:flex; min-height:0; }
   .side{ width:268px; flex:none; border-right:1px solid var(--border); background:var(--card); display:flex; flex-direction:column; padding:22px 12px 18px 10px; }
-  .side .lbl{ font-size:12.5px; letter-spacing:.24em; color:var(--muted); padding:0 0 14px 20px; }
-  .side nav{ display:flex; flex-direction:column; gap:3px; }
-  .dept{ position:relative; display:flex; align-items:center; gap:16px; padding:11px 14px 11px 20px; border:none; background:none; border-radius:4px; font-size:17px; color:var(--midnight); text-align:left; width:100%; }
+  .side .lbl{ font-size:12.5px; letter-spacing:.24em; color:var(--muted); padding:0 0 10px 20px; }
+  .side nav{ display:flex; flex-direction:column; gap:2px; }
+  .dept{ position:relative; display:flex; align-items:center; gap:21px; padding:8.5px 14px 8.5px 20px; border:none; background:none; border-radius:4px; font-size:18px; color:var(--midnight); text-align:left; width:100%; white-space:nowrap; }
   .dept:hover{ background:#F2F3F8; }
   .dept.on{ background:var(--selected); }
   .dept.on::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--primary); border-radius:2px; }
-  .dept svg.i{ color:var(--midnight); }
-  .side .foot{ margin-top:auto; border-top:1px solid var(--border); padding:16px 0 0 20px; font-size:12.5px; letter-spacing:.24em; color:var(--muted); }
+  .dept svg.i{ width:30px; height:30px; stroke-width:1.45; color:var(--midnight); }
+  .side .foot{ margin:auto 14px 0 20px; border-top:1px solid var(--border); padding:16px 0 0 .24em; font-size:12.5px; letter-spacing:.24em; color:var(--muted); text-align:center; }
 
   .main{ flex:1; min-width:0; background:var(--bg); padding:22px 34px 26px 40px; display:flex; flex-direction:column; }
-  .crumb{ font-size:14.5px; color:var(--muted); }
+  .crumb{ font-size:15px; color:var(--muted); }
   .crumb b{ font-weight:400; color:var(--midnight); }
-  .eyebrow{ margin-top:38px; display:flex; align-items:center; gap:22px; font-size:13px; letter-spacing:.22em; color:var(--midnight); }
-  .eyebrow::before{ content:""; width:50px; height:3px; background:var(--primary); }
-  h1{ margin:12px 0 0; font-size:56px; line-height:1.05; font-weight:800; letter-spacing:-.01em; color:var(--midnight); }
-  .sub{ margin-top:12px; font-size:37px; font-weight:400; color:var(--primary); line-height:1.15; }
-  .sub-th{ margin-top:8px; font-size:24px; color:var(--primary); font-family:"Noto Sans Thai","Inter",sans-serif; }
+  .eyebrow{ margin-top:36px; display:flex; align-items:center; gap:22px; font-size:12.5px; letter-spacing:.22em; color:var(--midnight); }
+  .eyebrow::before{ content:""; width:50px; height:3px; background:var(--primary); flex:none; }
+  h1{ margin:10px 0 0; font-size:54px; line-height:1.05; font-weight:800; letter-spacing:-.01em; color:var(--midnight); }
+  .sub{ margin-top:10px; font-size:36px; font-weight:400; color:var(--primary); line-height:1.15; }
+  .sub-th{ margin-top:4px; font-size:27px; line-height:1.3; color:var(--primary); font-family:"Noto Sans Thai","Inter",sans-serif; }
 
-  .cards{ margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .card{ background:var(--card); border:1px solid var(--border); border-radius:6px; padding:24px 22px 20px; display:flex; flex-direction:column; gap:22px; }
-  .card .row{ display:flex; gap:26px; align-items:flex-start; padding-left:10px; }
-  .card .big svg.i{ width:72px; height:72px; stroke-width:1.5; color:var(--midnight); }
-  .card .k{ font-size:13px; letter-spacing:.22em; color:var(--muted); margin-top:8px; }
-  .card .t{ font-size:27px; font-weight:700; margin-top:10px; font-family:"Noto Sans Thai","Inter",sans-serif; }
-  .card .t.en{ font-family:"Inter","Noto Sans Thai",sans-serif; font-size:30px; }
-  .card .d{ font-size:19px; color:var(--muted); margin-top:8px; font-family:"Noto Sans Thai","Inter",sans-serif; }
-  .btn{ display:flex; align-items:center; justify-content:center; gap:14px; height:60px; border-radius:4px; border:none; color:#fff; font-size:21px; font-weight:600; text-decoration:none; font-family:"Noto Sans Thai","Inter",sans-serif; }
+  .cards{ margin-top:28px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .card{ min-width:0; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:24px 22px 20px; display:flex; flex-direction:column; gap:26px; }
+  .card .row{ display:flex; gap:38px; align-items:flex-start; padding-left:8px; }
+  .card .big{ flex:none; width:76px; display:flex; justify-content:center; }
+  .card .big svg.i{ width:76px; height:76px; stroke-width:1.5; color:var(--midnight); }
+  .card .big svg.clip{ width:100px; height:100px; margin:-12px; stroke-width:1.05; }
+  .card .big svg.bars{ width:84px; height:84px; margin:-4px; stroke-width:1.2; }
+  .card .tx{ min-width:0; }
+  .card .k{ font-size:12.5px; letter-spacing:.22em; color:var(--muted); margin-top:8px; }
+  .card .t{ font-size:28px; line-height:40px; font-weight:700; margin-top:9px; font-family:"Noto Sans Thai","Inter",sans-serif; }
+  .card .t.en{ font-family:"Inter","Noto Sans Thai",sans-serif; font-size:28px; }
+  .card .d{ font-size:23px; line-height:1.35; color:var(--muted); margin-top:6px; font-family:"Noto Sans Thai","Inter",sans-serif; }
+  .card .btn{ margin-top:auto; align-self:flex-start; margin-left:122px; min-width:260px; padding:0 28px; }
+  .btn{ display:flex; align-items:center; justify-content:center; gap:12px; height:48px; border-radius:4px; border:none; color:#fff; font-size:18px; font-weight:600; text-decoration:none; white-space:nowrap; font-family:"Noto Sans Thai","Inter",sans-serif; }
   .btn.primary{ background:var(--primary); }
   .btn.midnight{ background:var(--midnight); }
   .btn:hover{ filter:brightness(1.08); }
   .btn.off{ background:var(--disabled); color:#fff; cursor:not-allowed; filter:none; }
-  .btn svg.i{ width:24px; height:24px; stroke-width:2; }
+  .btn svg.i{ width:22px; height:22px; stroke-width:1.9; }
 
-  .guide{ margin-top:22px; padding-top:22px; border-top:1px solid var(--border); display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap; }
-  .guide h2{ margin:0 0 12px; font-size:19px; font-weight:700; font-family:"Noto Sans Thai","Inter",sans-serif; }
+  .guide{ margin-top:21px; padding-top:16px; border-top:1px solid var(--border); display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+  .guide h2{ margin:0 0 10px; font-size:19px; font-weight:700; font-family:"Noto Sans Thai","Inter",sans-serif; }
   .gbtns{ display:flex; gap:12px; }
-  .gbtn{ display:flex; align-items:center; gap:20px; height:46px; min-width:190px; padding:0 30px; border:1px solid var(--border); background:var(--card); border-radius:3px; font-size:15.5px; letter-spacing:.12em; color:var(--midnight); }
+  .gbtn{ display:flex; align-items:center; gap:23px; height:46px; min-width:190px; padding:0 24px 0 29px; border:1px solid var(--border); background:var(--card); border-radius:3px; font-size:16px; font-weight:500; letter-spacing:.08em; color:var(--midnight); white-space:nowrap; }
   .gbtn:hover{ border-color:var(--primary); }
-  .note{ font-size:15px; color:var(--muted); font-family:"Noto Sans Thai","Inter",sans-serif; }
+  .gbtn svg.i{ width:32px; height:32px; stroke-width:1.4; }
+  .note{ font-size:17.5px; line-height:1.3; color:var(--muted); font-family:"Noto Sans Thai","Inter",sans-serif; }
 
-  /* ---------- มือถือ (FINAL REFERENCE 02 · MOBILE) ---------- */
+  /* ---------- จอกลาง 761–1250px: ย่อแถบแผนก/การ์ด ให้หัวข้อ คำอธิบาย และปุ่มอยู่บรรทัดเดียว ---------- */
+  @media (min-width:761px) and (max-width:1250px){
+    .side{ width:232px; padding-left:8px; padding-right:10px; }
+    .side .lbl{ padding-left:18px; }
+    .dept{ gap:14px; padding:8.5px 10px 8.5px 18px; font-size:17px; }
+    .dept svg.i{ width:28px; height:28px; }
+    .side .foot{ margin-left:18px; margin-right:8px; }
+    .main{ padding:22px 24px 26px 28px; }
+    .card{ padding:22px 18px 18px; gap:22px; }
+    .card .row{ padding-left:0; gap:20px; }
+    .card .big{ width:56px; }
+    .card .big svg.i{ width:56px; height:56px; }
+    .card .big svg.clip{ width:74px; height:74px; margin:-9px; }
+    .card .big svg.bars{ width:66px; height:66px; margin:-5px; stroke-width:1.35; }
+    .card .t{ font-size:26px; } .card .t.en{ font-size:27px; }
+    .card .d{ font-size:21px; }
+    .btn{ font-size:17px; }
+    .card .btn{ margin-left:76px; min-width:220px; padding:0 22px; }
+    .note{ font-size:15px; }
+  }
+  @media (min-width:761px) and (max-width:1000px){
+    .cards{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- มือถือ (FINAL REFERENCE 02 · MOBILE) — ทั้งหน้าอยู่ในจอเดียว ---------- */
   .m-pick{ display:none; }
   @media (max-width:760px){
-    .top{ height:auto; padding:14px 18px 10px; flex-direction:column; position:relative; gap:4px; }
-    .top .logo{ height:66px; }
-    .top .ws{ letter-spacing:.24em; font-size:14px; }
+    .top{ height:auto; padding:9px 18px 7px; flex-direction:column; position:relative; gap:2px; }
+    .top .logo{ height:57px; margin-right:56px; }
+    .top .ws{ letter-spacing:.24em; font-size:12.5px; padding-left:.24em; }
     .top .ws .av{ display:none; }
-    .top .menu{ display:block; position:absolute; right:14px; top:30px; }
-    .top .menu svg.i{ width:32px; height:32px; stroke-width:1.8; }
+    .top .menu{ display:block; position:absolute; right:8px; top:15px; }
+    .top .menu svg.i{ width:34px; height:34px; stroke-width:1.3; }
     .side{ display:none; position:fixed; z-index:20; top:0; left:0; bottom:0; width:82%; max-width:300px; box-shadow:0 10px 40px rgba(37,45,72,.25); overflow:auto; }
     .side.open{ display:flex; }
     .scrim{ position:fixed; inset:0; background:rgba(37,45,72,.35); z-index:19; display:none; }
     .scrim.open{ display:block; }
-    .main{ padding:14px 20px 22px; }
-    .m-pick{ display:block; margin-bottom:12px; }
-    .m-pick label{ display:block; font-size:16px; font-weight:600; margin-bottom:8px; font-family:"Noto Sans Thai","Inter",sans-serif; }
+    .main{ padding:8px 20px 6px; }
+    .m-pick{ display:block; margin-bottom:10px; }
+    .m-pick label{ display:block; font-size:16px; font-weight:600; line-height:1.3; margin-bottom:5px; font-family:"Noto Sans Thai","Inter",sans-serif; }
     .m-sel{ position:relative; }
     .m-sel svg.i{ position:absolute; left:16px; top:50%; transform:translateY(-50%); pointer-events:none; color:var(--midnight); }
     .m-sel svg.i.chev{ left:auto; right:16px; width:20px; height:20px; stroke-width:2; }
-    .m-sel select{ width:100%; height:52px; appearance:none; -webkit-appearance:none; border:1px solid var(--border); background:var(--card); border-radius:4px; padding:0 44px 0 58px; font-family:inherit; font-size:18px; color:var(--midnight); }
-    .eyebrow{ margin-top:22px; gap:22px; font-size:12px; }
-    h1{ font-size:44px; }
-    .sub{ font-size:29px; }
-    .sub-th{ font-size:20px; }
-    .cards{ grid-template-columns:1fr; gap:14px; margin-top:22px; }
-    .card{ padding:20px 18px 16px; gap:18px; }
+    .m-sel select{ width:100%; height:42px; appearance:none; -webkit-appearance:none; border:1px solid var(--border); background:var(--card); border-radius:4px; padding:0 44px 0 57px; font-family:inherit; font-size:17px; color:var(--midnight); }
+    .crumb{ font-size:15px; }
+    .eyebrow{ margin-top:18px; gap:16px; font-size:12px; }
+    .eyebrow::before{ width:40px; }
+    h1{ margin-top:8px; font-size:40px; }
+    .sub{ margin-top:6px; font-size:min(27px, 7.1vw); }
+    .sub-th{ margin-top:4px; font-size:min(20.5px, 5.4vw); }
+    .cards{ grid-template-columns:1fr; gap:12px; margin-top:16px; }
+    .card{ padding:14px 16px 12px; gap:12px; }
+    .card .row{ padding-left:6px; gap:27px; }
+    .card .big{ width:62px; margin-top:6px; }
     .card .big svg.i{ width:62px; height:62px; }
-    .card .t{ font-size:24px; } .card .t.en{ font-size:27px; }
-    .card .d{ font-size:17px; }
-    .btn{ height:56px; font-size:19px; }
-    .guide{ flex-direction:column; align-items:stretch; margin-top:16px; padding-top:16px; }
-    .gbtns{ display:grid; grid-template-columns:1fr 1fr; }
-    .gbtn{ min-width:0; justify-content:center; padding:0 10px; gap:14px; }
-    .note{ text-align:center; font-size:13.5px; }
+    .card .big svg.clip{ width:80px; height:80px; margin:-9px; stroke-width:1.25; }
+    .card .big svg.bars{ width:66px; height:66px; margin:-2px; stroke-width:1.45; }
+    .card .k{ font-size:11.5px; margin-top:6px; }
+    .card .t{ font-size:22px; line-height:30px; margin-top:4px; } .card .t.en{ font-size:22.5px; }
+    .card .d{ font-size:17px; margin-top:2px; }
+    .btn{ height:42px; font-size:15.5px; gap:8px; }
+    .btn svg.i{ width:18px; height:18px; }
+    .card .btn{ margin-left:95px; min-width:200px; padding:0 16px; }
+    .guide{ flex-direction:column; align-items:stretch; margin-top:12px; padding-top:10px; gap:8px; }
+    .guide h2{ font-size:16.5px; margin-bottom:6px; }
+    .gbtns{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .gbtn{ min-width:0; height:40px; justify-content:center; padding:0 10px; gap:14px; font-size:14px; letter-spacing:.06em; }
+    .gbtn svg.i{ width:28px; height:28px; stroke-width:1.5; }
+    .note{ text-align:center; font-size:14px; }
+  }
+  @media (max-width:359px){
+    .top .logo{ height:48px; margin-right:44px; }
+    .card .row{ padding-left:0; gap:16px; }
+    .card .big{ width:52px; }
+    .card .big svg.clip{ width:68px; height:68px; margin:-8px; }
+    .card .big svg.bars{ width:56px; height:56px; margin:-2px; }
+    .card .t, .card .t.en{ font-size:20px; }
+  }
+  @media (max-width:374px){
+    .card .btn{ min-width:0; width:calc(100% - 95px); padding:0 12px; }
+  }
+  @media (max-width:359px){
+    .card .btn{ margin-left:68px; width:calc(100% - 68px); padding:0 10px; }
   }
 
   /* ---------- หน้าต่างซ้อน HOW TO / README ---------- */
@@ -135,7 +193,7 @@
   <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2.2l2.2 11h10.4l2-8H6.3"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></symbol>
   <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6.5L5 19a1.5 1.5 0 0 0 1.3 2h11.4A1.5 1.5 0 0 0 19 19l-5-9.5V3"/><path d="M7.5 15h9"/></symbol>
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
-  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.5 5.5h17M3.5 12h17M3.5 18.5h17"/></symbol>
   <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8.5" y="2.5" width="7" height="4" rx="1"/><path d="M15.5 4.5h2a2 2 0 0 1 2 2V20a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2h2"/><path d="M11 11h5M11 15h5M11 19h5M8 11h.01M8 15h.01M8 19h.01"/></symbol>
@@ -173,13 +231,13 @@
 
       <section class="cards">
         <div class="card">
-          <div class="row"><span class="big"><svg class="i"><use href="#i-clipboard"/></svg></span>
-            <div><div class="k">DAILY INPUT</div><div class="t">กรอกข้อมูลประจำวัน</div><div class="d">บันทึกผลการทำงานวันนี้</div></div></div>
+          <div class="row"><span class="big"><svg class="i clip"><use href="#i-clipboard"/></svg></span>
+            <div class="tx"><div class="k">DAILY INPUT</div><div class="t">กรอกข้อมูลประจำวัน</div><div class="d">บันทึกผลการทำงานวันนี้</div></div></div>
           <a class="btn primary" id="btnInput" target="_blank" rel="noopener">กรอกข้อมูลประจำวัน <svg class="i"><use href="#i-arrow"/></svg></a>
         </div>
         <div class="card">
-          <div class="row"><span class="big"><svg class="i"><use href="#i-bars"/></svg></span>
-            <div><div class="k">PERFORMANCE</div><div class="t en">Dashboard</div><div class="d">ดูภาพรวมและแนวโน้ม</div></div></div>
+          <div class="row"><span class="big"><svg class="i bars"><use href="#i-bars"/></svg></span>
+            <div class="tx"><div class="k">PERFORMANCE</div><div class="t en">Dashboard</div><div class="d">ดูภาพรวมและแนวโน้ม</div></div></div>
           <a class="btn midnight" id="btnDash" target="_blank" rel="noopener">เปิด Dashboard <svg class="i"><use href="#i-arrow"/></svg></a>
         </div>
       </section>
@@ -239,7 +297,7 @@ const GUIDES = {
         <li>กด <b>บันทึกข้อมูล</b> — ถ้าวันนั้นเคยบันทึกแล้ว ระบบจะถามยืนยันก่อนบันทึกทับ</li>
       </ol>
       <h4>Dashboard</h4>
-      <ul><li>เลือก Period / Date · กด <b>Export</b> เพื่อบันทึกภาพ PNG (Full Page หรือ Part 1–3)</li><li>Raw Data เปิดได้จากเมนูด้านบนของ Dashboard</li></ul>
+      <ul><li>เลือก Period / Date · กด <b>Export</b> เพื่อบันทึกภาพ PNG (Full Page หรือ Part 1–3)</li><li>Raw Data เปิดได้จากเมนูด้านบนของ Dashboard (เฉพาะผู้ได้รับเชิญ)</li></ul>
       <h4>เป้าหมาย KPI</h4>
       <table>
         <tr><td>% Machine Breakdown</td><td>≤ 2.00% (Cut-off 5.00%)</td></tr>
@@ -255,7 +313,8 @@ const GUIDES = {
       </ul>
       <h4>สิทธิ์การใช้งาน</h4>
       <ul>
-        <li>หน้านี้เปิดได้เฉพาะอีเมลที่ได้รับเชิญ — ถ้าขึ้นว่าไม่มีสิทธิ์ ให้เปิดด้วยบัญชีที่ได้รับเชิญ</li>
+        <li>ปุ่ม <b>กรอกข้อมูลประจำวัน</b> และ <b>Dashboard</b> — ทุกคนที่มีลิงก์ใช้งานได้ (ล็อกอินบัญชี Google ก่อน)</li>
+        <li><b>Raw Data</b> (Google Sheet ต้นฉบับ) — เปิดได้เฉพาะอีเมลที่ได้รับเชิญ ถ้าขึ้นว่า “ต้องได้รับสิทธิ์เข้าถึง” ให้ติดต่อผู้ดูแลระบบ</li>
         <li>ข้อมูลภายในบริษัท ห้ามส่งต่อลิงก์ให้บุคคลภายนอก</li>
       </ul>
       <h4>ผู้ติดต่อ</h4>
@@ -316,7 +375,6 @@ $('scrim').addEventListener('click', closeMenu);
 let start = DEFAULT_DEPT;
 try { start = new URLSearchParams(location.search).get('dept') || localStorage.getItem('tpkPortal.dept') || DEFAULT_DEPT; } catch (e) {}
 selectDept(start);
-if (window.google && google.script && google.script.url) google.script.url.getLocation(l => { if (l.parameter && l.parameter.dept) selectDept(l.parameter.dept); });
 </script>
 </body>
 </html>
